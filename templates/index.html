@@ -11,7 +11,8 @@
 
     <!-- Header with Add and Search functionality -->
     <div class="flex w-full max-w-5xl justify-between items-center mb-12 px-4">
-      <button class="bg-purple-600 text-white font-semibold px-6 py-2 rounded-full shadow-md hover:bg-purple-700 transition gradient-hover">Add Task +</button>
+      <!-- Trigger Button -->
+      <button class="bg-purple-600 text-white font-semibold px-6 py-2 rounded-full shadow-md hover:bg-purple-700 transition gradient-hover" onclick="openModal()">Add Task +</button>
       
       <div class="relative w-2/3 max-w-lg">
         <input type="text" placeholder="Search tasks..." class="w-full px-4 py-3 bg-gray-800 border-none rounded-full input-shadow focus:outline-none focus:ring-2 focus:ring-purple-500 text-white">
@@ -24,6 +25,81 @@
   
       <button class="bg-purple-600 text-white font-semibold px-6 py-2 rounded-full shadow-md hover:bg-purple-700 transition gradient-hover">Add Multiple +</button>
     </div>
+
+    <!-- Modal -->
+    <div id="myModal" class="relative z-10 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+      <div class="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+      <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+          <div class="relative transform overflow-hidden rounded-lg bg-gray-800 text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+            
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 border-b border-gray-700 rounded-t">
+              <h3 class="text-lg font-semibold text-gray-100">
+                  Create New Task
+              </h3>
+              <button type="button" onclick="closeModal()" class="text-gray-400 bg-transparent hover:bg-gray-700 hover:text-white rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
+                  <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                  </svg>
+                  <span class="sr-only">Close modal</span>
+              </button>
+            </div>
+
+            <!-- Modal body -->
+            <form class="p-4">
+              <div class="grid gap-4 mb-4 grid-cols-2">
+                  <div class="col-span-2 sm:col-span-1">
+                      <label for="name" class="block mb-2 text-sm font-medium text-gray-200">Title</label>
+                      <input type="text" name="name" id="name" class="bg-gray-700 border border-gray-600 text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter your task's title" required>
+                  </div>
+
+                  <div class="col-span-2 sm:col-span-1">
+                    <label for="status" class="block mb-2 text-sm font-medium text-gray-200">Status</label>
+                    <select id="status" class="bg-gray-700 border border-gray-600 text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                        <option selected hidden>Select ...</option>
+                        <option value="ToDo">To Do</option>
+                        <option value="Doing">In Progress</option>
+                        <option value="Done">Done</option>
+                    </select>
+                  </div>
+
+                  <div class="col-span-2 sm:col-span-1">
+                    <label for="priority" class="block mb-2 text-sm font-medium text-gray-200">Priority</label>
+                    <select id="priority" class="bg-gray-700 border border-gray-600 text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                        <option selected hidden>Select ...</option>
+                        <option value="P1">P1</option>
+                        <option value="P2">P2</option>
+                        <option value="P3">P3</option>
+                    </select>
+                  </div>
+
+                  <div class="col-span-2 sm:col-span-1">
+                    <label for="date" class="block mb-2 text-sm font-medium text-gray-200">Due date</label>
+                    <input type="date" name="date" id="date" class="bg-gray-700 border border-gray-600 text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                  </div>
+
+                  <div class="col-span-2">
+                      <label for="description" class="block mb-2 text-sm font-medium text-gray-200">Task Description</label>
+                      <textarea id="description" rows="4" class="block p-2.5 w-full text-sm text-gray-100 bg-gray-700 rounded-lg border border-gray-600 focus:ring-blue-500 focus:border-blue-500" placeholder="Write task description here"></textarea>
+                  </div>
+              </div>
+
+              <div class="flex justify-end items-center gap-x-2 py-3 px-4">
+                <button type="button" onclick="closeModal()" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-600 bg-gray-700 text-gray-100 shadow-sm hover:bg-gray-600 focus:outline-none">
+                  Close
+                </button>
+                <button type="button" onclick="closeModal()" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none">
+                  Save changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+   
   
     <!-- Task Board Columns -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl">
@@ -91,6 +167,7 @@
       </div>
   
     </div>
+    <script src="../assets/kanban.js"></script>
   
 </body>
 </html>
