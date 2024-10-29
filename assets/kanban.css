@@ -14,3 +14,8 @@
 .input-shadow::placeholder {
     color: rgba(255, 255, 255, 0.7);
 }
+
+.TaskDescription, .TaskTitle  {
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+}

@@ -91,9 +91,9 @@
                 <button type="button" onclick="closeModal()" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-600 bg-gray-700 text-gray-100 shadow-sm hover:bg-gray-600 focus:outline-none">
                   Close
                 </button>
-                <button type="button" onclick="closeModal()" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-purple-600 shadow-md hover:bg-purple-700 transition gradient-hover text-white focus:outline-none">
+                <button type="button" onclick="saveTask()" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-purple-600 shadow-md hover:bg-purple-700 transition gradient-hover text-white focus:outline-none">
                   Save changes
-                </button>
+                </button>                
               </div>
             </form>
           </div>
@@ -103,68 +103,38 @@
    
     <!-- Task Board Columns -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-5xl">
-  
-      <!-- To Do Column -->
-      <div>
+
+      <!--TO DO-->
+      <div id="TodoCol">
         <h2 class="text-xl font-bold text-gray-300 mb-6 flex items-center">
           <span class="w-3 h-3 bg-red-500 rounded-full mr-2"></span> To Do
         </h2>
         <div class="space-y-4">
-          <div class="bg-gray-800 p-5 rounded-lg shadow-lg card-shadow transition transform hover:scale-105">
-            <p class="text-lg font-semibold">Brief Soutenances Croisées</p>
-            <div class="flex mt-4 space-x-3">
-              <button class="bg-red-500 text-white text-sm font-semibold px-4 py-1.5 rounded-full hover:bg-red-600 transition">Delete</button>
-              <button class="bg-yellow-400 text-gray-800 text-sm font-semibold px-4 py-1.5 rounded-full hover:bg-yellow-500 transition">Edit</button>
-            </div>
-          </div>
-          <div class="bg-gray-800 p-5 rounded-lg shadow-lg card-shadow transition transform hover:scale-105">
-            <p class="text-lg font-semibold">WORKSHOP 3</p>
-            <div class="flex mt-4 space-x-3">
-              <button class="bg-red-500 text-white text-sm font-semibold px-4 py-1.5 rounded-full hover:bg-red-600 transition">Delete</button>
-              <button class="bg-yellow-400 text-gray-800 text-sm font-semibold px-4 py-1.5 rounded-full hover:bg-yellow-500 transition">Edit</button>
-            </div>
-          </div>
+          <!-- Tasks will be appended here -->
         </div>
       </div>
 
-      <!-- In Progress Column -->
-      <div>
+      <!--DOING-->
+      <div id="DoingCol">
         <h2 class="text-xl font-bold text-gray-300 mb-6 flex items-center">
           <span class="w-3 h-3 bg-yellow-500 rounded-full mr-2"></span> In Progress
         </h2>
         <div class="space-y-4">
-          <div class="bg-gray-800 p-5 rounded-lg shadow-lg card-shadow transition transform hover:scale-105">
-            <p class="text-lg font-semibold">WORKSHOP 2</p>
-            <div class="flex mt-4 space-x-3">
-              <button class="bg-red-500 text-white text-sm font-semibold px-4 py-1.5 rounded-full hover:bg-red-600 transition">Delete</button>
-              <button class="bg-yellow-400 text-gray-800 text-sm font-semibold px-4 py-1.5 rounded-full hover:bg-yellow-500 transition">Edit</button>
-            </div>
-          </div>
+          <!-- Tasks will be appended here -->
         </div>
       </div>
 
-      <!-- Done Column -->
-      <div>
+      <!--DONE-->
+      <div id="DoneCol">
         <h2 class="text-xl font-bold text-gray-300 mb-6 flex items-center">
           <span class="w-3 h-3 bg-green-500 rounded-full mr-2"></span> Done
         </h2>
         <div class="space-y-4">
-          <div class="bg-gray-800 p-5 rounded-lg shadow-lg card-shadow transition transform hover:scale-105">
-            <p class="text-lg font-semibold">Brief 5</p>
-            <div class="flex mt-4 space-x-3">
-              <button class="bg-red-500 text-white text-sm font-semibold px-4 py-1.5 rounded-full hover:bg-red-600 transition">Delete</button>
-              <button class="bg-yellow-400 text-gray-800 text-sm font-semibold px-4 py-1.5 rounded-full hover:bg-yellow-500 transition">Edit</button>
-            </div>
-          </div>
-          <div class="bg-gray-800 p-5 rounded-lg shadow-lg card-shadow transition transform hover:scale-105">
-            <p class="text-lg font-semibold">WORKSHOP 1</p>
-            <div class="flex mt-4 space-x-3">
-              <button class="bg-red-500 text-white text-sm font-semibold px-4 py-1.5 rounded-full hover:bg-red-600 transition">Delete</button>
-              <button class="bg-yellow-400 text-gray-800 text-sm font-semibold px-4 py-1.5 rounded-full hover:bg-yellow-500 transition">Edit</button>
-            </div>
-          </div>
+          <!-- Tasks will be appended here -->
         </div>
       </div>
+      
+
     </div>
 
     <script src="../assets/kanban.js"></script>
