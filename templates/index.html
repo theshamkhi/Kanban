@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Board</title>
+    <link rel="icon" href="../assets/media/icon.png"/>
     <link rel="stylesheet" href="../assets/kanban.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-900 text-white min-h-screen flex flex-col items-center p-6 font-sans">
 
     <!-- Header with Add and Search functionality -->
-    <div class="flex w-full max-w-5xl justify-between items-center mb-12 px-4">
+    <div class="flex flex-col md:flex-row w-full max-w-5xl justify-between items-center mb-12 px-4 space-y-4 md:space-y-0 md:space-x-4">
       <!-- Trigger Button -->
-      <button class="bg-purple-600 text-white font-semibold px-6 py-2 rounded-full shadow-md hover:bg-purple-700 transition gradient-hover" onclick="openModal()">Add Task +</button>
+      <button class="bg-purple-600 text-white font-semibold px-6 py-2 rounded-full shadow-md hover:bg-purple-700 transition gradient-hover w-full md:w-auto" onclick="openModal()">Add Task +</button>
       
-      <div class="relative w-2/3 max-w-lg">
+      <div class="relative w-full md:w-2/3 max-w-lg">
         <input type="text" placeholder="Search tasks..." class="w-full px-4 py-3 bg-gray-800 border-none rounded-full input-shadow focus:outline-none focus:ring-2 focus:ring-purple-500 text-white">
         <span class="absolute right-4 top-3 text-gray-400">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -23,7 +24,7 @@
         </span>
       </div>
   
-      <button class="bg-purple-600 text-white font-semibold px-6 py-2 rounded-full shadow-md hover:bg-purple-700 transition gradient-hover">Add Multiple +</button>
+      <button class="bg-purple-600 text-white font-semibold px-6 py-2 rounded-full shadow-md hover:bg-purple-700 transition gradient-hover w-full md:w-auto">Add Multiple +</button>
     </div>
 
     <!-- Modal -->
@@ -49,13 +50,13 @@
 
             <!-- Modal body -->
             <form class="p-4">
-              <div class="grid gap-4 mb-4 grid-cols-2">
-                  <div class="col-span-2 sm:col-span-1">
+              <div class="grid gap-4 mb-4 grid-cols-1 sm:grid-cols-2">
+                  <div class="col-span-1">
                       <label for="name" class="block mb-2 text-sm font-medium text-gray-200">Title</label>
                       <input type="text" name="name" id="name" class="bg-gray-700 border border-gray-600 text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter your task's title" required>
                   </div>
 
-                  <div class="col-span-2 sm:col-span-1">
+                  <div class="col-span-1">
                     <label for="status" class="block mb-2 text-sm font-medium text-gray-200">Status</label>
                     <select id="status" class="bg-gray-700 border border-gray-600 text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                         <option selected hidden>Select ...</option>
@@ -65,7 +66,7 @@
                     </select>
                   </div>
 
-                  <div class="col-span-2 sm:col-span-1">
+                  <div class="col-span-1">
                     <label for="priority" class="block mb-2 text-sm font-medium text-gray-200">Priority</label>
                     <select id="priority" class="bg-gray-700 border border-gray-600 text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                         <option selected hidden>Select ...</option>
@@ -75,7 +76,7 @@
                     </select>
                   </div>
 
-                  <div class="col-span-2 sm:col-span-1">
+                  <div class="col-span-1">
                     <label for="date" class="block mb-2 text-sm font-medium text-gray-200">Due date</label>
                     <input type="date" name="date" id="date" class="bg-gray-700 border border-gray-600 text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
                   </div>
@@ -90,7 +91,7 @@
                 <button type="button" onclick="closeModal()" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-600 bg-gray-700 text-gray-100 shadow-sm hover:bg-gray-600 focus:outline-none">
                   Close
                 </button>
-                <button type="button" onclick="closeModal()" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none">
+                <button type="button" onclick="closeModal()" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-purple-600 shadow-md hover:bg-purple-700 transition gradient-hover text-white focus:outline-none">
                   Save changes
                 </button>
               </div>
@@ -100,9 +101,8 @@
       </div>
     </div>
    
-  
     <!-- Task Board Columns -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-5xl">
   
       <!-- To Do Column -->
       <div>
@@ -126,7 +126,7 @@
           </div>
         </div>
       </div>
-  
+
       <!-- In Progress Column -->
       <div>
         <h2 class="text-xl font-bold text-gray-300 mb-6 flex items-center">
@@ -142,7 +142,7 @@
           </div>
         </div>
       </div>
-  
+
       <!-- Done Column -->
       <div>
         <h2 class="text-xl font-bold text-gray-300 mb-6 flex items-center">
@@ -165,9 +165,8 @@
           </div>
         </div>
       </div>
-  
     </div>
+
     <script src="../assets/kanban.js"></script>
-  
 </body>
 </html>
