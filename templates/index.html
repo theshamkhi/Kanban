@@ -13,7 +13,7 @@
     <!-- Header with Add and Search functionality -->
     <div class="flex flex-col md:flex-row w-full max-w-5xl justify-between items-center mb-12 px-4 space-y-4 md:space-y-0 md:space-x-4">
       <!-- Trigger Button -->
-      <button class="bg-purple-600 text-white font-semibold px-6 py-2 rounded-full shadow-md hover:bg-purple-700 transition gradient-hover w-full md:w-auto" onclick="openModal()">Add Task +</button>
+      <button class="bg-purple-600 text-white font-semibold px-6 py-2 rounded-full shadow-md hover:bg-purple-700 transition gradient-hover w-full md:w-auto" onclick="OpenModal()">Add Task +</button>
       
       <div class="relative w-full md:w-2/3 max-w-lg">
         <input type="text" placeholder="Search tasks..." class="w-full px-4 py-3 bg-gray-800 border-none rounded-full input-shadow focus:outline-none focus:ring-2 focus:ring-purple-500 text-white">
@@ -28,7 +28,7 @@
     </div>
 
     <!-- Modal -->
-    <div id="myModal" class="relative z-10 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div id="Modal" class="relative z-10 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
       <div class="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
 
       <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -40,7 +40,7 @@
               <h3 class="text-lg font-semibold text-gray-100">
                   Create New Task
               </h3>
-              <button type="button" onclick="closeModal()" class="text-gray-400 bg-transparent hover:bg-gray-700 hover:text-white rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
+              <button type="button" onclick="CloseModal()" class="text-gray-400 bg-transparent hover:bg-gray-700 hover:text-white rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
                   <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                   </svg>
@@ -52,8 +52,8 @@
             <form class="p-4">
               <div class="grid gap-4 mb-4 grid-cols-1 sm:grid-cols-2">
                   <div class="col-span-1">
-                      <label for="name" class="block mb-2 text-sm font-medium text-gray-200">Title</label>
-                      <input type="text" name="name" id="name" class="bg-gray-700 border border-gray-600 text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter your task's title" required>
+                      <label for="title" class="block mb-2 text-sm font-medium text-gray-200">Title</label>
+                      <input type="text" name="title" id="title" class="bg-gray-700 border border-gray-600 text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter your task's title" required>
                   </div>
 
                   <div class="col-span-1">
@@ -88,10 +88,10 @@
               </div>
 
               <div class="flex justify-end items-center gap-x-2 py-3 px-4">
-                <button type="button" onclick="closeModal()" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-600 bg-gray-700 text-gray-100 shadow-sm hover:bg-gray-600 focus:outline-none">
+                <button type="button" onclick="CloseModal()" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-600 bg-gray-700 text-gray-100 shadow-sm hover:bg-gray-600 focus:outline-none">
                   Close
                 </button>
-                <button type="button" onclick="saveTask()" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-purple-600 shadow-md hover:bg-purple-700 transition gradient-hover text-white focus:outline-none">
+                <button type="button" onclick="SaveTask()" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-purple-600 shadow-md hover:bg-purple-700 transition gradient-hover text-white focus:outline-none">
                   Save changes
                 </button>                
               </div>
