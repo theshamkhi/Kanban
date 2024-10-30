@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", LoadTasks);
 
-let currentTaskIndex = null; // Track the index of the task being edited
+let editingTaskIndex = null; // Track the task index being edited
 
 function OpenModal() {
   document.getElementById("Modal").classList.remove("hidden");
@@ -8,8 +8,8 @@ function OpenModal() {
 
 function CloseModal() {
   document.getElementById("Modal").classList.add("hidden");
-  ClearModal();
-  currentTaskIndex = null; // Reset index when closing modal
+  ClearModal(); // Clear fields after closing the modal
+  editingTaskIndex = null; // Reset editing index
 }
 
 function SaveTask() {
@@ -20,25 +20,32 @@ function SaveTask() {
   const dueDate = document.getElementById("date").value;
   const description = document.getElementById("description").value;
 
+  // Input validation for title and status
   if (title === "") {
-    alert("Fields must be filled out");
+    alert("Title field must be filled out");
+    return false;
+  }
+
+  if (status === "") {
+    alert("Please select a status for the task");
     return false;
   }
 
   const task = { title, status, priority, dueDate, description };
-  const tasks = JSON.parse(localStorage.getItem("tasks")) || []; //JSON.parse() to convert text into a JavaScript object
+  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-  if (currentTaskIndex !== null) {
+  if (editingTaskIndex !== null) {
     // Update existing task
-    tasks[currentTaskIndex] = task;
+    tasks[editingTaskIndex] = task;
   } else {
     // Add new task
     tasks.push(task);
   }
 
-  localStorage.setItem("tasks", JSON.stringify(tasks)); //JSON.stringify() to convert it into a string
-  ClearTasksDisplay(); // Clear current display
-  LoadTasks(); // Re-load tasks to reflect changes
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+  LoadTasks(); // Reload tasks to update UI
+
+  // Close the modal and clear the form
   CloseModal();
 }
 
@@ -47,7 +54,7 @@ function DisplayTask(task, index) {
   taskElement.classList.add("bg-gray-800", "p-5", "rounded-lg", "shadow-lg", "card-shadow", "transition", "transform", "hover:scale-105");
 
   let priorityClass = task.priority === "P1" ? "text-red-600" : task.priority === "P2" ? "text-blue-600" : "text-green-500";
-
+  
   taskElement.innerHTML = `
     <div class="flex justify-between">
       <p class="TaskTitle text-lg font-semibold">${task.title}</p>
@@ -62,19 +69,58 @@ function DisplayTask(task, index) {
   `;
 
   const columnId = task.status === "ToDo" ? "TodoCol" : task.status === "Doing" ? "DoingCol" : "DoneCol";
-  document.getElementById(columnId).querySelector(".space-y-4").appendChild(taskElement);
+  document.getElementById(columnId).querySelector(".Tasks").appendChild(taskElement);
 
-  // Add event listener for delete
   taskElement.querySelector(".DeleteTask").addEventListener("click", () => {
     taskElement.remove();
     removeTaskFromLocalStorage(task);
   });
 
-  // Add event listener for edit
   taskElement.querySelector(".EditTask").addEventListener("click", () => {
-    OpenModal();
-    FillModalWithTask(task, index);
+    EditTask(index); // Pass the index of the task to be edited
   });
+}
+
+function LoadTasks() {
+  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  
+  // Clear existing tasks from the UI
+  document.querySelectorAll(".Tasks").forEach(col => col.innerHTML = "");
+
+  // Count tasks by status
+  let TodoCount = 0;
+  let DoingCount = 0;
+  let DoneCount = 0;
+
+  // Display tasks and count them by column
+  tasks.forEach((task, index) => {
+    DisplayTask(task, index);
+    if (task.status === "ToDo") TodoCount++;
+    else if (task.status === "Doing") DoingCount++;
+    else if (task.status === "Done") DoneCount++;
+  });
+
+  // Update the column headers with the task counts
+  document.getElementById("TodoCount").textContent = `(${TodoCount})`;
+  document.getElementById("DoingCount").textContent = `(${DoingCount})`;
+  document.getElementById("DoneCount").textContent = `(${DoneCount})`;
+}
+
+
+
+function EditTask(index) {
+  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  const task = tasks[index];
+
+  // Populate modal fields with the task's data
+  document.getElementById("title").value = task.title;
+  document.getElementById("status").value = task.status;
+  document.getElementById("priority").value = task.priority;
+  document.getElementById("date").value = task.dueDate;
+  document.getElementById("description").value = task.description;
+
+  editingTaskIndex = index; // Set the task index for editing
+  OpenModal();
 }
 
 function removeTaskFromLocalStorage(taskToRemove) {
@@ -83,33 +129,10 @@ function removeTaskFromLocalStorage(taskToRemove) {
   localStorage.setItem("tasks", JSON.stringify(updatedTasks));
 }
 
-function FillModalWithTask(task, index) {
-  document.getElementById("title").value = task.title;
-  document.getElementById("status").value = task.status;
-  document.getElementById("priority").value = task.priority;
-  document.getElementById("date").value = task.dueDate;
-  document.getElementById("description").value = task.description;
-  currentTaskIndex = index; // Set current task index for editing
-}
-
-function LoadTasks() {
-  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  tasks.forEach((task, index) => DisplayTask(task, index));
-}
-
 function ClearModal() {
   document.getElementById("title").value = "";
   document.getElementById("status").value = "";
   document.getElementById("priority").value = "";
   document.getElementById("date").value = "";
   document.getElementById("description").value = "";
-}
-
-function ClearTasksDisplay() {
-  const columns = ["TodoCol", "DoingCol", "DoneCol"];
-  columns.forEach(columnId => {
-    const column = document.getElementById(columnId);
-    const taskContainer = column.querySelector(".space-y-4");
-    taskContainer.innerHTML = ""; // Clear existing tasks
-  });
 }
