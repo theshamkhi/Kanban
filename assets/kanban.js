@@ -1,12 +1,15 @@
 document.addEventListener("DOMContentLoaded", LoadTasks);
 
+let currentTaskIndex = null; // Track the index of the task being edited
+
 function OpenModal() {
   document.getElementById("Modal").classList.remove("hidden");
 }
 
 function CloseModal() {
   document.getElementById("Modal").classList.add("hidden");
-  ClearModal(); // Clear fields after closing the modal
+  ClearModal();
+  currentTaskIndex = null; // Reset index when closing modal
 }
 
 function SaveTask() {
@@ -17,42 +20,34 @@ function SaveTask() {
   const dueDate = document.getElementById("date").value;
   const description = document.getElementById("description").value;
 
-  if (title == "") {
+  if (title === "") {
     alert("Fields must be filled out");
     return false;
   }
-  else {
-    const task = {title, status, priority, dueDate, description};
 
-    // Save task to localStorage
-    const tasks = JSON.parse(localStorage.getItem("tasks")) || []; //JSON.parse() to convert text into a JavaScript object
+  const task = { title, status, priority, dueDate, description };
+  const tasks = JSON.parse(localStorage.getItem("tasks")) || []; //JSON.parse() to convert text into a JavaScript object
+
+  if (currentTaskIndex !== null) {
+    // Update existing task
+    tasks[currentTaskIndex] = task;
+  } else {
+    // Add new task
     tasks.push(task);
-    localStorage.setItem("tasks", JSON.stringify(tasks));//JSON.stringify() to convert it into a string
-
-    // Add task to the UI
-    DisplayTask(task);
-
-    // Close the modal and clear the form
-    CloseModal();
   }
+
+  localStorage.setItem("tasks", JSON.stringify(tasks)); //JSON.stringify() to convert it into a string
+  ClearTasksDisplay(); // Clear current display
+  LoadTasks(); // Re-load tasks to reflect changes
+  CloseModal();
 }
 
-function DisplayTask(task) {
-  // Create task element
+function DisplayTask(task, index) {
   const taskElement = document.createElement("div");
   taskElement.classList.add("bg-gray-800", "p-5", "rounded-lg", "shadow-lg", "card-shadow", "transition", "transform", "hover:scale-105");
-  let priorityClass = "";
 
-  if (task.priority === "P1") {
-    priorityClass = "text-red-600";
-  }
-  else if (task.priority === "P2") {
-    priorityClass = "text-blue-600";
-  }
-  else if (task.priority === "P3") {
-    priorityClass = "text-green-500";
-  }
-  
+  let priorityClass = task.priority === "P1" ? "text-red-600" : task.priority === "P2" ? "text-blue-600" : "text-green-500";
+
   taskElement.innerHTML = `
     <div class="flex justify-between">
       <p class="TaskTitle text-lg font-semibold">${task.title}</p>
@@ -65,22 +60,21 @@ function DisplayTask(task) {
       <button class="EditTask bg-yellow-400 text-gray-800 text-sm font-semibold px-4 py-1.5 rounded-full hover:bg-yellow-500 transition">Edit</button>
     </div>
   `;
-  
 
-  // Append task to the correct column based on status
   const columnId = task.status === "ToDo" ? "TodoCol" : task.status === "Doing" ? "DoingCol" : "DoneCol";
   document.getElementById(columnId).querySelector(".space-y-4").appendChild(taskElement);
 
-  // Add event listener to delete button
+  // Add event listener for delete
   taskElement.querySelector(".DeleteTask").addEventListener("click", () => {
     taskElement.remove();
     removeTaskFromLocalStorage(task);
   });
-}
 
-function LoadTasks() {
-  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  tasks.forEach(DisplayTask);
+  // Add event listener for edit
+  taskElement.querySelector(".EditTask").addEventListener("click", () => {
+    OpenModal();
+    FillModalWithTask(task, index);
+  });
 }
 
 function removeTaskFromLocalStorage(taskToRemove) {
@@ -89,8 +83,33 @@ function removeTaskFromLocalStorage(taskToRemove) {
   localStorage.setItem("tasks", JSON.stringify(updatedTasks));
 }
 
+function FillModalWithTask(task, index) {
+  document.getElementById("title").value = task.title;
+  document.getElementById("status").value = task.status;
+  document.getElementById("priority").value = task.priority;
+  document.getElementById("date").value = task.dueDate;
+  document.getElementById("description").value = task.description;
+  currentTaskIndex = index; // Set current task index for editing
+}
+
+function LoadTasks() {
+  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  tasks.forEach((task, index) => DisplayTask(task, index));
+}
+
 function ClearModal() {
   document.getElementById("title").value = "";
+  document.getElementById("status").value = "";
+  document.getElementById("priority").value = "";
   document.getElementById("date").value = "";
   document.getElementById("description").value = "";
+}
+
+function ClearTasksDisplay() {
+  const columns = ["TodoCol", "DoingCol", "DoneCol"];
+  columns.forEach(columnId => {
+    const column = document.getElementById(columnId);
+    const taskContainer = column.querySelector(".space-y-4");
+    taskContainer.innerHTML = ""; // Clear existing tasks
+  });
 }
