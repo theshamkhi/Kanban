@@ -149,8 +149,8 @@ function removeTaskFromLocalStorage(taskToRemove) {
 
 function ClearModal() {
   document.getElementById("title").value = "";
-  document.getElementById("status").value == "Select...";
-  document.getElementById("priority").value == "Select...";
+  document.getElementById("status").value = "Select...";
+  document.getElementById("priority").value = "Select...";
   document.getElementById("date").value = "";
   document.getElementById("description").value = "";
 }
