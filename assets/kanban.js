@@ -1,6 +1,14 @@
+/*
+
+# element.addEventListener(event, function);
+# document.getElementById("id").onclick = function(){code}	== document.getElementById("id").addEventListener("click", function);
+# document.getElementById(id) - document.getElementsByTagName(name) - document.getElementsByClassName(name)
+# document.createElement(element) - document.removeChild(element) - document.appendChild(element)
+
+*/
 document.addEventListener("DOMContentLoaded", LoadTasks);
 
-let editingTaskIndex = null; // Track the task index being edited
+let Index = null; // Track the task index being edited
 
 function OpenModal() {
   document.getElementById("Modal").classList.remove("hidden");
@@ -9,7 +17,7 @@ function OpenModal() {
 function CloseModal() {
   document.getElementById("Modal").classList.add("hidden");
   ClearModal(); // Clear fields after closing the modal
-  editingTaskIndex = null; // Reset editing index
+  Index = null; // Reset editing index
 }
 
 function SaveTask() {
@@ -25,7 +33,6 @@ function SaveTask() {
     alert("Title field must be filled out");
     return false;
   }
-
   if (status === "") {
     alert("Please select a status for the task");
     return false;
@@ -33,16 +40,19 @@ function SaveTask() {
 
   const task = { title, status, priority, dueDate, description };
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  //JSON.parse(): Converting JSON strings into JavaScript objects //localStorage.getItem: Retrieving data
 
-  if (editingTaskIndex !== null) {
+  if (Index !== null) {
     // Update existing task
-    tasks[editingTaskIndex] = task;
+    tasks[Index] = task;
   } else {
     // Add new task
     tasks.push(task);
   }
 
   localStorage.setItem("tasks", JSON.stringify(tasks));
+  //JSON.stringify(): Converting an object into a JSON string //localStorage.setItem: Storing data
+
   LoadTasks(); // Reload tasks to update UI
 
   // Close the modal and clear the form
@@ -82,6 +92,8 @@ function DisplayTask(task, index) {
 }
 
 function LoadTasks() {
+
+  //JSON.parse(): Converting JSON strings into JavaScript objects //localStorage.getItem: Retrieving data
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
   
   // Clear existing tasks from the UI
@@ -95,9 +107,12 @@ function LoadTasks() {
   // Display tasks and count them by column
   tasks.forEach((task, index) => {
     DisplayTask(task, index);
-    if (task.status === "ToDo") TodoCount++;
-    else if (task.status === "Doing") DoingCount++;
-    else if (task.status === "Done") DoneCount++;
+    if (task.status === "ToDo")
+      TodoCount++;
+    else if (task.status === "Doing")
+      DoingCount++;
+    else if (task.status === "Done")
+      DoneCount++;
   });
 
   // Update the column headers with the task counts
@@ -110,29 +125,32 @@ function LoadTasks() {
 
 function EditTask(index) {
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  //JSON.parse(): Converting JSON strings into JavaScript objects //localStorage.getItem: Retrieving data
   const task = tasks[index];
 
-  // Populate modal fields with the task's data
+  // Fill modal fields with the task's data
   document.getElementById("title").value = task.title;
   document.getElementById("status").value = task.status;
   document.getElementById("priority").value = task.priority;
   document.getElementById("date").value = task.dueDate;
   document.getElementById("description").value = task.description;
 
-  editingTaskIndex = index; // Set the task index for editing
+  Index = index; // Set the task index for editing
   OpenModal();
 }
 
 function removeTaskFromLocalStorage(taskToRemove) {
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  //JSON.parse(): Converting JSON strings into JavaScript objects //localStorage.getItem: Retrieving data
   const updatedTasks = tasks.filter(task => task.title !== taskToRemove.title || task.dueDate !== taskToRemove.dueDate);
   localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+  //JSON.stringify(): Converting an object into a JSON string //localStorage.setItem: Storing data
 }
 
 function ClearModal() {
   document.getElementById("title").value = "";
-  document.getElementById("status").value = "";
-  document.getElementById("priority").value = "";
+  document.getElementById("status").value == "Select...";
+  document.getElementById("priority").value == "Select...";
   document.getElementById("date").value = "";
   document.getElementById("description").value = "";
 }
