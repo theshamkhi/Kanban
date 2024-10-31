@@ -28,7 +28,7 @@ function SaveTask() {
   const dueDate = document.getElementById("date").value;
   const description = document.getElementById("description").value;
 
-  // Input validation for title and status
+  // Required Inputs
   if (title === "") {
     alert("Title field must be filled out");
     return false;
