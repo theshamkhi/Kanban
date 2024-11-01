@@ -61,7 +61,7 @@ function SaveTask() {
 
 function DisplayTask(task, index) {
   const taskElement = document.createElement("div");
-  taskElement.classList.add("bg-gray-800", "p-5", "rounded-lg", "shadow-lg", "card-shadow", "transition", "transform", "hover:scale-105");
+  taskElement.classList.add("bg-gray-800", "p-5", "rounded-lg", "shadow-lg", "cardShadow", "transition", "transform", "hover:scale-105");
 
   let priorityClass = task.priority === "P1" ? "text-red-600" : task.priority === "P2" ? "text-blue-600" : "text-green-500";
   
@@ -153,4 +153,17 @@ function ClearModal() {
   document.getElementById("priority").value = "Select...";
   document.getElementById("date").value = "";
   document.getElementById("description").value = "";
+}
+
+function Tri() {
+  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  const selectedPriority = document.getElementById("tri").value;
+
+  document.querySelectorAll(".Tasks").forEach(col => col.innerHTML = "");
+
+  tasks.forEach((task, index) => {
+    if (selectedPriority === "All Tasks" || task.priority === selectedPriority) {
+      DisplayTask(task, index);
+    }
+  });
 }

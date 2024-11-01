@@ -2,17 +2,14 @@
     margin: 0;
 }
 
-.card-shadow:hover {
+.cardShadow:hover {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
-.gradient-bg {
+.gradBg {
     background: linear-gradient(135deg, #6d28d9, #4f46e5);
 }
-.gradient-hover:hover {
-    background: linear-gradient(135deg, #4f46e5, #6d28d9);
-}
-.input-shadow::placeholder {
-    color: rgba(255, 255, 255, 0.7);
+.Hovering:hover {
+    background: linear-gradient(135deg, #531ea8, #4f46e5);
 }
 
 .TaskDescription, .TaskTitle  {

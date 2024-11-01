@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Board</title>
+    <meta name="description" content="We build software for better task management - no matter what you're working on.">
     <link rel="icon" href="../assets/media/icon.png"/>
     <link rel="stylesheet" href="../assets/kanban.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -12,7 +13,7 @@
 
     <div class="flex flex-col md:flex-row w-full max-w-5xl justify-between items-center mb-12 px-4 space-y-4 md:space-y-0 md:space-x-4">
       <!-- Trigger Button -->
-      <button class="bg-purple-600 text-white font-semibold px-6 py-2 rounded-full shadow-md hover:bg-purple-700 transition gradient-hover w-full md:w-auto" onclick="OpenModal()">Add Task +</button>
+      <button class="gradBg text-white font-semibold px-6 py-2 rounded-full shadow-md hover:bg-purple-700 transition Hovering w-full md:w-auto" onclick="OpenModal()">Add Task +</button>
       
       <div class="relative w-full md:w-2/3 max-w-lg">
         <input type="text" placeholder="Search tasks..." class="w-full px-4 py-3 bg-gray-800 border-none rounded-full input-shadow focus:outline-none focus:ring-2 focus:ring-purple-500 text-white">
@@ -22,9 +23,19 @@
             </svg>              
         </span>
       </div>
-  
-      <button class="bg-purple-600 text-white font-semibold px-6 py-2 rounded-full shadow-md hover:bg-purple-700 transition gradient-hover w-full md:w-auto">Add Multiple +</button>
+      <button class="gradBg text-white font-semibold px-6 py-2 rounded-full shadow-md hover:bg-purple-700 transition Hovering w-full md:w-auto" onclick="OpenModal()">Add Multiple +</button>
     </div>
+
+    <!-- Tri Button -->
+    <div>
+      <select id="tri" class="bg-gray-700 border border-gray-600 text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" onchange="Tri()">
+        <option selected>All Tasks</option>
+        <option value="P1">P1</option>
+        <option value="P2">P2</option>
+        <option value="P3">P3</option>
+      </select>
+    </div>
+
 
     <!-- Modal -->
     <div id="Modal" class="relative z-10 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
@@ -90,7 +101,7 @@
                 <button type="button" onclick="CloseModal()" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-600 bg-gray-700 text-gray-100 shadow-sm hover:bg-gray-600 focus:outline-none">
                   Close
                 </button>
-                <button type="button" onclick="SaveTask()" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-purple-600 shadow-md hover:bg-purple-700 transition gradient-hover text-white focus:outline-none">
+                <button type="button" onclick="SaveTask()" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent gradBg shadow-md transition Hovering text-white focus:outline-none">
                   Save changes
                 </button>                
               </div>
