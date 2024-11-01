@@ -40,7 +40,8 @@ function SaveTask() {
 
   const task = { title, status, priority, dueDate, description };
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  //JSON.parse(): Converting JSON strings into JavaScript objects //localStorage.getItem: Retrieving data
+  //JSON.parse(): Converting JSON strings into JavaScript objects
+  //localStorage.getItem: Retrieving data
 
   if (Index !== null) {
     // Update existing task
@@ -51,7 +52,8 @@ function SaveTask() {
   }
 
   localStorage.setItem("tasks", JSON.stringify(tasks));
-  //JSON.stringify(): Converting an object into a JSON string //localStorage.setItem: Storing data
+  //JSON.stringify(): Converting an object into a JSON string
+  //localStorage.setItem: Storing data
 
   LoadTasks(); // Reload tasks to update UI
 
@@ -60,12 +62,13 @@ function SaveTask() {
 }
 
 function DisplayTask(task, index) {
-  const taskElement = document.createElement("div");
-  taskElement.classList.add("bg-gray-800", "p-5", "rounded-lg", "shadow-lg", "cardShadow", "transition", "transform", "hover:scale-105");
+  const TaskCard = document.createElement("div");
+  TaskCard.classList.add("Task", "bg-gray-800", "p-5", "rounded-lg", "shadow-lg", "cardShadow", "transition", "transform", "hover:scale-105");
+  TaskCard.setAttribute('draggable', true);
 
   let priorityClass = task.priority === "P1" ? "text-red-600" : task.priority === "P2" ? "text-blue-600" : "text-green-500";
   
-  taskElement.innerHTML = `
+  TaskCard.innerHTML = `
     <div class="flex justify-between">
       <p class="TaskTitle text-lg font-semibold">${task.title}</p>
       <p class="text-sm ${priorityClass}">${task.priority}</p>
@@ -79,14 +82,14 @@ function DisplayTask(task, index) {
   `;
 
   const columnId = task.status === "ToDo" ? "TodoCol" : task.status === "Doing" ? "DoingCol" : "DoneCol";
-  document.getElementById(columnId).querySelector(".Tasks").appendChild(taskElement);
+  document.getElementById(columnId).querySelector(".Tasks").appendChild(TaskCard);
 
-  taskElement.querySelector(".DeleteTask").addEventListener("click", () => {
-    taskElement.remove();
+  TaskCard.querySelector(".DeleteTask").addEventListener("click", () => {
+    TaskCard.remove();
     removeTaskFromLocalStorage(task);
   });
 
-  taskElement.querySelector(".EditTask").addEventListener("click", () => {
+  TaskCard.querySelector(".EditTask").addEventListener("click", () => {
     EditTask(index); // Pass the index of the task to be edited
   });
 }
@@ -122,7 +125,6 @@ function LoadTasks() {
 }
 
 
-
 function EditTask(index) {
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
   //JSON.parse(): Converting JSON strings into JavaScript objects //localStorage.getItem: Retrieving data
@@ -141,10 +143,12 @@ function EditTask(index) {
 
 function removeTaskFromLocalStorage(taskToRemove) {
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  //JSON.parse(): Converting JSON strings into JavaScript objects //localStorage.getItem: Retrieving data
+  //JSON.parse(): Converting JSON strings into JavaScript objects
+  //localStorage.getItem: Retrieving data
   const updatedTasks = tasks.filter(task => task.title !== taskToRemove.title || task.dueDate !== taskToRemove.dueDate);
   localStorage.setItem("tasks", JSON.stringify(updatedTasks));
-  //JSON.stringify(): Converting an object into a JSON string //localStorage.setItem: Storing data
+  //JSON.stringify(): Converting an object into a JSON string
+  //localStorage.setItem: Storing data
 }
 
 function ClearModal() {
