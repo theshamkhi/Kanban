@@ -56,6 +56,7 @@ function SaveTask() {
   //localStorage.setItem: Storing data
 
   LoadTasks(); // Reload tasks to update UI
+  Tri(); // Reapply the filter based on the selected priority
 
   // Close the modal and clear the form
   CloseModal();
@@ -163,8 +164,10 @@ function Tri() {
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
   const selectedPriority = document.getElementById("tri").value;
 
+  // Clear current displayed tasks
   document.querySelectorAll(".Tasks").forEach(col => col.innerHTML = "");
 
+  // Filter and display tasks based on selected priority
   tasks.forEach((task, index) => {
     if (selectedPriority === "All Tasks" || task.priority === selectedPriority) {
       DisplayTask(task, index);
