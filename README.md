@@ -2,6 +2,8 @@
 
 *OwlNest* est une application de gestion de tâches qui permet aux utilisateurs d’ajouter, modifier, supprimer, filtrer et prioriser des tâches. Le projet est développé en utilisant HTML, CSS et JavaScript, *OwlNest* offre une interface conviviale et des fonctionnalités avancées pour la gestion des tâches.
 
+![image](https://github.com/user-attachments/assets/8d495d9d-749d-404d-a896-f976064fe9f0)
+
 ## Fonctionnalités
 
 - **Ajouter des tâches** : Créez des tâches facilement avec un titre, une description et une priorité.
